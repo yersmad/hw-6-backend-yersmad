@@ -28,3 +28,10 @@ class FlowersRepository:
                 return flower
         
         return None
+
+    def get_flower_by_id(self, id: int) -> Flower:
+        for flower in self.flowers:
+            if flower.id == id:
+                return flower
+
+        return None

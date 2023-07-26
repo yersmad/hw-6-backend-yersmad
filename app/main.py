@@ -125,4 +125,20 @@ def post_flowers(
 
     flowers_repository.save_flower(flower=flower)
     return RedirectResponse("/flowers", status_code=303)
-    
+
+
+@app.get("/cart/items")
+def cart(
+    response: Response,
+    flower_id: int=Form(),
+    cart: str=Cookie(default="[]")
+):
+    flower = flowers_repository.get_flower_by_id(id=flower_id)
+    cart_json = json.loads(cart)
+    if flower != None:
+        cart_json.append(flower_id)
+        new_cart = json.dumps(cart_json)
+
+    response = RedirectResponse("/cart/items", status_code=303)
+    response.set_cookie(token, new_cart)
+    return response
