@@ -127,8 +127,8 @@ def post_flowers(
     return RedirectResponse("/flowers", status_code=303)
 
 
-@app.get("/cart/items")
-def cart(
+@app.post("/cart/items")
+def post_cart(
     response: Response,
     flower_id: int=Form(),
     cart: str=Cookie(default="[]")
